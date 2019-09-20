@@ -37,7 +37,13 @@ az role assignment create \
 `kubectl apply -f aadpodidentitybinding.yml`
 
 4. Install azure app-gw ingress controller
-`helm install -f helm-config.yml application-gateway-kubernetes-ingress/ingress-azure
+`helm install -f helm-config.yml application-gateway-kubernetes-ingress/ingress-azure`
+```
+helm upgrade \
+    odd-billygoat \
+    application-gateway-kubernetes-ingress/ingress-azure \
+    --version 0.9.0-rc2
+```
 
 ## 部署应用程序
 1. You can generate a self-signed certificate and private key with:
