@@ -40,6 +40,12 @@ az role assignment create \
 `helm install -f helm-config.yml application-gateway-kubernetes-ingress/ingress-azure
 
 ## 部署应用程序
-1. Create application ingress, service, deployments...
+1. You can generate a self-signed certificate and private key with:
+`$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj "/CN=${HOST}/O=${HOST}"`
+
+2.Then create the secret in the cluster via:
+`kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}`
+
+3. Create application ingress, service, deployments...
 `kubectl apply -f ing-guestbook.yml`
 `kubectl apply -f guestbook-all-in-one.yml`
