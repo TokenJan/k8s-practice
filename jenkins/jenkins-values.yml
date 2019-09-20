@@ -1,0 +1,29 @@
+master:
+  adminUser: admin
+  adminPassword: lI7rdjzVoN
+  serviceType: LoadBalancer
+  installPlugins:
+   - kubernetes:1.12.0
+   - workflow-job:2.23
+   - workflow-aggregator:2.5
+   - credentials-binding:1.16
+   - git:3.9.1
+   - blueocean:1.7.1
+   - kubernetes-cli:1.7.0
+agent:
+  volumes:
+   - type: HostPath
+     volumeName: docker-sock
+     hostPath: /var/run/docker.sock
+     mountPath: /var/run/docker.sock
+   - type: HostPath
+     volumeName: docker
+     hostPath: /usr/bin/docker
+     mountPath: /usr/bin/docker
+   - type: HostPath
+     volumeName: kubectl
+     hostPath: /usr/local/bin/kubectl
+     mountPath: /usr/local/bin/kubectl
+persistence:
+  storageClass: default
+  existingClaim: jenkins-pvc

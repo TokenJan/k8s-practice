@@ -1,0 +1,17 @@
+# apiVersion: "aadpodidentity.k8s.io/v1"
+# kind: AzureIdentity
+# metadata:
+#   name: <a-idname>
+# spec:
+#   type: 0
+#   ResourceID: /subscriptions/<subid>/resourcegroups/<resourcegroup>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/<name>
+#   ClientID: <clientId>
+
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+  name: ec-identity
+spec:
+  type: 0
+  ResourceID: /subscriptions/ba322ebf-28db-4da8-b959-2ed8d39047b5/resourceGroups/MC_ec_ec-dev-aks_japanwest/providers/Microsoft.ManagedIdentity/userAssignedIdentities/azure-identity
+  ClientID: 2df4da16-a455-405c-b4f5-5a11e48f2d52

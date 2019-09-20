@@ -1,0 +1,51 @@
+# This file contains the essential configs for the ingress controller helm chart
+
+# Verbosity level of the App Gateway Ingress Controller
+verbosityLevel: 3
+
+################################################################################
+# Specify which application gateway the ingress controller will manage
+#
+appgw:
+    subscriptionId: ba322ebf-28db-4da8-b959-2ed8d39047b5
+    resourceGroup: ec
+    name: ec-dev-ag
+
+    # Setting appgw.shared to "true" will create an AzureIngressProhibitedTarget CRD.
+    # This prohibits AGIC from applying config for any host/path.
+    # Use "kubectl get AzureIngressProhibitedTargets" to view and change this.
+    shared: false
+
+################################################################################
+# Specify which kubernetes namespace the ingress controller will watch
+# Default value is "default"
+# Leaving this variable out or setting it to blank or empty string would
+# result in Ingress Controller observing all acessible namespaces.
+#
+# kubernetes:
+#   watchNamespace: <namespace>
+
+################################################################################
+# Specify the authentication with Azure Resource Manager
+#
+# Two authentication methods are available:
+# - Option 1: AAD-Pod-Identity (https://github.com/Azure/aad-pod-identity)
+armAuth:
+    type: aadPodIdentity
+    identityResourceID: /subscriptions/ba322ebf-28db-4da8-b959-2ed8d39047b5/resourceGroups/MC_ec_ec-dev-aks_japanwest/providers/Microsoft.ManagedIdentity/userAssignedIdentities/azure-identity
+    identityClientID: 2df4da16-a455-405c-b4f5-5a11e48f2d52
+
+# - Option 2: Service Principal Credentials
+# armAuth:
+#     type: servicePrincipal
+#     secretJSON: <<Generate this value with: "az ad sp create-for-rbac --subscription <subscription-uuid> --sdk-auth | base64 -w0">>
+
+################################################################################
+# Specify if the cluster is RBAC enabled or not
+rbac:
+    enabled: true # true/false
+
+################################################################################
+# Specify aks cluster related information. THIS IS BEING DEPRECATED.
+aksClusterConfiguration:
+    apiServerAddress: ec-dev-aks-dns-61122425.hcp.japanwest.azmk8s.io
